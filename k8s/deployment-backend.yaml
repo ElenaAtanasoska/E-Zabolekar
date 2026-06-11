@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dental-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dental-backend
+  template:
+    metadata:
+      labels:
+        app: dental-backend
+    spec:
+      containers:
+      - name: dental-backend
+        image: dental-backend:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DATABASE_URL
+          value: "postgresql+psycopg2://postgres:elena@dental-db-service:5432/dental_db"
+        - name: SECRET_KEY
+          value: "supersecretkey123"
+        ports:
+        - containerPort: 8000

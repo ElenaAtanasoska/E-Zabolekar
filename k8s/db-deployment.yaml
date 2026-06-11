@@ -1,0 +1,33 @@
+# k8s/db-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dental-db
+spec:
+  selector:
+    matchLabels:
+      app: dental-db
+  template:
+    metadata:
+      labels:
+        app: dental-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15
+        env:
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "elena"
+        - name: POSTGRES_DB
+          value: "dental_db"
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgredb
+      volumes:
+      - name: postgredb
+        persistentVolumeClaim:
+          claimName: postgres-pvc

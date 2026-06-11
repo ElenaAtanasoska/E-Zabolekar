@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dental-frontend-service
+spec:
+  selector:
+    app: dental-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5173
+  type: NodePort

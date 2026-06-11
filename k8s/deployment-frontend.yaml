@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dental-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dental-frontend
+  template:
+    metadata:
+      labels:
+        app: dental-frontend
+    spec:
+      containers:
+      - name: dental-frontend
+        image: dental-frontend:latest 
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5173
