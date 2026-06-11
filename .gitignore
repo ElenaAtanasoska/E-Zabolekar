@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# React / Vite
+node_modules/
+dist/
+.output/
+.vercel/
+
+# VS Code конфигурации
+.vscode/
+.DS_Store
