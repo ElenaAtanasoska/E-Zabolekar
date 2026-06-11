@@ -7,6 +7,7 @@ import os
 import uuid
 from ..database import get_db
 from .. import schemas, models, database
+from app.cloudinary_service import upload_image_to_cloudinary
 
 router = APIRouter(prefix="/xrays", tags=["xrays"])
 
@@ -22,21 +23,8 @@ def create_xray_type(xray_type: schemas.XRayTypeCreate, db: Session = Depends(da
     db.refresh(db_type)
     return db_type
 
-UPLOAD_DIR = "app/static/xrays"
-if not os.path.exists(UPLOAD_DIR):
-    os.makedirs(UPLOAD_DIR)
-
-def save_file(file: UploadFile):
-    file_extension = os.path.splitext(file.filename)[1]
-    unique_name = f"{uuid.uuid4()}{file_extension}"
-    disk_path = os.path.join(UPLOAD_DIR, unique_name)
-    with open(disk_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-
-    return f"static/xrays/{unique_name}"
-
 @router.post("/", response_model=schemas.PatientXRay)
-def upload_xray(
+async def upload_xray(  
     patient_id: int = Form(...),
     type_id: int = Form(...),
     title: str = Form(...),
@@ -45,12 +33,14 @@ def upload_xray(
     file: UploadFile = File(...),
     db: Session = Depends(database.get_db)
 ):
-    file_url = save_file(file)
+    
+    image_url = await upload_image_to_cloudinary(file)
+    
     db_xray = models.PatientXRay(
         patient_id=patient_id,
         type_id=type_id,
         title=title,
-        image_url=file_url,
+        image_url=image_url, 
         notes=notes,
         scan_date=scan_date
     )

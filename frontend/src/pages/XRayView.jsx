@@ -350,7 +350,7 @@ const XRayView = () => {
                 <div key={xray.id} onClick={() => isSelectingSecond && selectSecondImage(xray)} className={`bg-white rounded-[24px] p-4 shadow-sm border transition-all flex flex-col hover:shadow-md cursor-pointer
                   ${isSelectingSecond ? 'border-[#00A3C1] ring-4 ring-[#00A3C1]/10 scale-[1.02]' : 'border-gray-50'}`}>
                   <div className="relative aspect-video rounded-[18px] overflow-hidden mb-4 bg-gray-100 flex-shrink-0">
-                    <img src={`http://localhost:8000/${xray.image_url}`} alt={xray.title} className="w-full h-full object-cover" />
+                    <img src={xray.image_url} alt={xray.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex flex-col flex-grow px-1">
                     <h3 className="font-black text-sm mb-1 text-[#01506D]">{xray.title}</h3>
@@ -368,12 +368,12 @@ const XRayView = () => {
 
                     <div className="flex items-center pt-3 border-t border-gray-100 mt-auto justify-between">
                       <div className="flex items-center gap-6 justify-center flex-grow text-[#00A3C1]">
-                        <button onClick={() => setFullscreenImage(`http://localhost:8000/${xray.image_url}`)} className="flex items-center gap-2 hover:text-[#01506D] transition-colors">
+                        <button onClick={() => setFullscreenImage(xray.image_url)} className="flex items-center gap-2 hover:text-[#01506D] transition-colors">
                           <Eye size={16} />
                           <span className="text-xs font-black">Прегледај</span>
                         </button>
                         <div className="w-[1px] h-4 bg-gray-100"></div>
-                        <button onClick={() => handleDownload(`http://localhost:8000/${xray.image_url}`, xray.title)} className="flex items-center tracking-wider gap-2 text-[#a2a4ab] hover:text-[#757679] transition-colors">
+                        <button onClick={() => handleDownload(xray.image_url, xray.title)} className="flex items-center tracking-wider gap-2 text-[#a2a4ab] hover:text-[#757679] transition-colors">
                           <Download size={16} />
                           <span className="text-xs font-black">Преземи</span>
                         </button>
@@ -586,7 +586,7 @@ const XRayView = () => {
             <div className="flex-1 h-full flex flex-col items-center group">
               <span className="text-white/40 text-[10px] font-black uppercase mb-2 group-hover:text-[#00A3C1] transition-colors tracking-widest">Прва снимка ({new Date(firstImage.scan_date).toLocaleDateString('mk-MK')})</span>
               <img
-                src={`http://localhost:8000/${firstImage.image_url}`}
+                src={firstImage.image_url}
                 className="w-full h-full object-contain rounded-3xl border border-white/10 shadow-2xl"
                 alt="First"
               />
@@ -595,7 +595,7 @@ const XRayView = () => {
             <div className="flex-1 h-full flex flex-col items-center group">
               <span className="text-white/40 text-[10px] font-black uppercase mb-2 group-hover:text-[#00A3C1] transition-colors tracking-widest">Втора снимка ({new Date(secondImage.scan_date).toLocaleDateString('mk-MK')})</span>
               <img
-                src={`http://localhost:8000/${secondImage.image_url}`}
+                src={firstImage.image_url}
                 className="w-full h-full object-contain rounded-3xl border border-white/10 shadow-2xl"
                 alt="Second"
               />

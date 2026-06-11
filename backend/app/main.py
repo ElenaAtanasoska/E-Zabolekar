@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager 
-from fastapi.staticfiles import StaticFiles 
-import os 
+#from fastapi.staticfiles import StaticFiles 
+#import os 
 
 from .routes import auth_routes, users, clinics, doctors, patients, xrays, teeth, treatment
 from .database import Base, engine, SessionLocal
@@ -24,11 +24,11 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(title="Dental App API", lifespan=lifespan)
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+#app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"], 
+    allow_origins=["http://localhost:5173", "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
