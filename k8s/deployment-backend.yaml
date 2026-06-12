@@ -14,12 +14,27 @@ spec:
     spec:
       containers:
       - name: dental-backend
-        image: dental-backend:latest
-        imagePullPolicy: IfNotPresent
+        image: atanasoska/dental-backend:latest
+        imagePullPolicy: Always
         env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dental-db-secret
+              key: password
+        
         - name: DATABASE_URL
-          value: "postgresql+psycopg2://postgres:elena@dental-db-service:5432/dental_db"
-        - name: SECRET_KEY
-          value: "supersecretkey123"
+          value: "postgresql+psycopg2://postgres:$(DB_PASSWORD)@dental-db-service:5432/dental_db"
         ports:
         - containerPort: 8000
+        volumeMounts:
+        - name: secrets-store-inline
+          mountPath: "/mnt/secrets"
+          readOnly: true
+      volumes:
+      - name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "dental-kv-provider"
