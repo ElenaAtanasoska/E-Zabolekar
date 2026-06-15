@@ -38,7 +38,7 @@ export default function PatientProfile() {
         const fetchPatientData = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const response = await axios.get(`http://localhost:8000/patients/${id}`, {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/patients/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const data = response.data;
@@ -68,7 +68,7 @@ export default function PatientProfile() {
     const handleSaveIndices = async () => {
         try {
             const token = localStorage.getItem("token");
-            await axios.patch(`http://localhost:8000/patients/${id}/indices`, null, {
+            await axios.patch(`${import.meta.env.VITE_API_URL}/patients/${id}/indices`, null, {
                 params: { plaque_index: tempPlaque, bleeding_index: tempBleeding },
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -82,7 +82,7 @@ export default function PatientProfile() {
     const handleSaveEmergency = async () => {
         try {
             const token = localStorage.getItem("token");
-            await axios.patch(`http://localhost:8000/patients/${id}/emergency-contact`, {
+            await axios.patch(`${import.meta.env.VITE_API_URL}/patients/${id}/emergency-contact`, {
                 name: emergencyName,
                 surname: emergencySurname,
                 phone: emergencyPhone
@@ -105,7 +105,7 @@ export default function PatientProfile() {
     const handleSaveVisit = async () => {
         try {
             const token = localStorage.getItem("token");
-            await axios.patch(`http://localhost:8000/patients/${id}/next-visit`, {
+            await axios.patch(`${import.meta.env.VITE_API_URL}/patients/${id}/next-visit`, {
                 next_visit: nextVisitDate,
                 next_visit_description: nextVisitDesc
             }, {
@@ -126,7 +126,7 @@ export default function PatientProfile() {
     const handleSaveProfile = async () => {
         try {
             const token = localStorage.getItem("token");
-            await axios.patch(`http://localhost:8000/patients/${id}`, {
+            await axios.patch(`${import.meta.env.VITE_API_URL}/patients/${id}`, {
                 first_name: editFirstName,
                 last_name: editLastName,
                 gender: editGender,

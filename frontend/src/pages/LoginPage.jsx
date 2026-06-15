@@ -14,7 +14,7 @@ export default function LoginPage() {
   useEffect(() => {
     const checkInitialStatus = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/auth/initial-status");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/initial-status`);
         if (response.data.needs_setup) setSetupInfo(response.data);
       } catch (err) { console.log("Системот е веќе конфигуриран."); }
     };
@@ -25,7 +25,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     try {
-      const response = await axios.post("http://127.0.0.1:8000/auth/login", { email, password });
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { email, password });
       const {
         access_token,
         user_id,

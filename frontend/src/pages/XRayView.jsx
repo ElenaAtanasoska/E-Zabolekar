@@ -82,7 +82,7 @@ const XRayView = () => {
 
   const fetchFolders = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/xrays/types');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/xrays/types`);
       setFolders(response.data);
     } catch (error) {
       console.error("Грешка при преземање на папките:", error);
@@ -91,7 +91,7 @@ const XRayView = () => {
 
   const fetchXrays = async () => {
     try {
-      let url = `http://localhost:8000/xrays/?patient_id=${patientId}`;
+      let url = `${import.meta.env.VITE_API_URL}/xrays/?patient_id=${patientId}`;
       if (selectedFolder !== 'all') {
         url += `&type_id=${selectedFolder}`;
       }
@@ -127,7 +127,7 @@ const XRayView = () => {
     e.preventDefault();
     if (!newFolderName.trim()) return;
     try {
-      await axios.post('http://localhost:8000/xrays/types', { name: newFolderName });
+      await axios.post(`${import.meta.env.VITE_API_URL}/xrays/types`, { name: newFolderName });
       setNewFolderName('');
       setIsFolderModalOpen(false);
       fetchFolders();
@@ -163,7 +163,7 @@ const XRayView = () => {
     formData.append('patient_id', patientId);
 
     try {
-      await axios.post('http://localhost:8000/xrays/', formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/xrays/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setIsXrayModalOpen(false);
@@ -221,7 +221,7 @@ const XRayView = () => {
     setIsSavingNotes(true);
 
     try {
-      const response = await axios.put(`http://localhost:8000/xrays/${selectedXrayForNotes.id}/notes`, {
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/xrays/${selectedXrayForNotes.id}/notes`, {
         notes: editingNotes
       });
       setXrays(prevXrays =>

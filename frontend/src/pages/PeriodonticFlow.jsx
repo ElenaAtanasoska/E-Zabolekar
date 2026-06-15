@@ -26,7 +26,7 @@ const PeriodonticFlow = () => {
         const fetchSavedData = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8000/patients/${id}/tooth/${toothId}/periodontal-measurements`
+                    `${import.meta.env.VITE_API_URL}/patients/${id}/tooth/${toothId}/periodontal-measurements`
                 );
                 const { record_details, measurements: savedMeasurements } = response.data;
 
@@ -78,7 +78,7 @@ const PeriodonticFlow = () => {
         };
 
         try {
-            await axios.post(`http://localhost:8000/patients/${id}/chart/${toothId}/periodontic-flow`, payload);
+            await axios.post(`${import.meta.env.VITE_API_URL}/patients/${id}/chart/${toothId}/periodontic-flow`, payload);
         } catch (err) {
             console.error(err);
         }

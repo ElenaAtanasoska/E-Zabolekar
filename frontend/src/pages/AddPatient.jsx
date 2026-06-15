@@ -35,7 +35,7 @@ export default function AddPatient() {
         setLoading(true);
         try {
             const token = localStorage.getItem("token");
-            const response = await axios.post("http://localhost:8000/patients/register", patientData, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/patients/register`, patientData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setTempPassword(response.data.temp_password);
@@ -49,7 +49,7 @@ export default function AddPatient() {
 
     const handleCloseModal = () => {
         setShowModal(false);
-        navigate("/Dashboard"); 
+        navigate("/Dashboard");
     };
 
     return (

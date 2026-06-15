@@ -16,8 +16,8 @@ function ConditionsModal({ isOpen, onClose, patientId, onSaveSuccess }) {
     useEffect(() => {
         if (isOpen) {
             setLoading(true);
-            const fetchAll = axios.get("http://localhost:8000/patients/medical-conditions/grouped");
-            const fetchCurrent = axios.get(`http://localhost:8000/patients/${patientId}/conditions`);
+            const fetchAll = axios.get(`${import.meta.env.VITE_API_URL}/patients/medical-conditions/grouped`);
+            const fetchCurrent = axios.get(`${import.meta.env.VITE_API_URL}/patients/${patientId}/conditions`);
 
             Promise.all([fetchAll, fetchCurrent])
                 .then(([resAll, resCurrent]) => {
@@ -40,7 +40,7 @@ function ConditionsModal({ isOpen, onClose, patientId, onSaveSuccess }) {
 
     const handleSave = async () => {
         try {
-            await axios.post(`http://localhost:8000/patients/${patientId}/conditions`, selectedIds);
+            await axios.post(`${import.meta.env.VITE_API_URL}/patients/${patientId}/conditions`, selectedIds);
             onSaveSuccess();
             onClose();
         } catch (err) {
@@ -119,8 +119,8 @@ function AllergiesModal({ isOpen, onClose, patientId, onSaveSuccess }) {
     useEffect(() => {
         if (isOpen) {
             setLoading(true);
-            const fetchAll = axios.get("http://localhost:8000/patients/allergies/all");
-            const fetchCurrent = axios.get(`http://localhost:8000/patients/${patientId}/allergies`);
+            const fetchAll = axios.get(`${import.meta.env.VITE_API_URL}/patients/allergies/all`);
+            const fetchCurrent = axios.get(`${import.meta.env.VITE_API_URL}/patients/${patientId}/allergies`);
 
             Promise.all([fetchAll, fetchCurrent])
                 .then(([resAll, resCurrent]) => {
@@ -150,7 +150,7 @@ function AllergiesModal({ isOpen, onClose, patientId, onSaveSuccess }) {
 
     const handleSave = async () => {
         try {
-            await axios.post(`http://localhost:8000/patients/${patientId}/allergies`, {
+            await axios.post(`${import.meta.env.VITE_API_URL}/patients/${patientId}/allergies`, {
                 allergies: selectedNames
             });
             onSaveSuccess();
@@ -228,7 +228,7 @@ function TherapyModal({ isOpen, onClose, patientId, onSaveSuccess }) {
 
     const handleSave = async () => {
         try {
-            await axios.post(`http://localhost:8000/patients/${patientId}/therapies`, formData);
+            await axios.post(`${import.meta.env.VITE_API_URL}/patients/${patientId}/therapies`, formData);
             onSaveSuccess();
             onClose();
             setFormData({
@@ -332,19 +332,19 @@ export default function PatientInfo() {
     const lastName = localStorage.getItem("last_name") || "";
 
     const fetchConditions = () => {
-        axios.get(`http://localhost:8000/patients/${id}/conditions`)
+        axios.get(`${import.meta.env.VITE_API_URL}/patients/${id}/conditions`)
             .then(res => setPatientConditions(res.data))
             .catch(err => console.error("Грешка при вчитување:", err));
     };
 
     const fetchAllergies = () => {
-        axios.get(`http://localhost:8000/patients/${id}/allergies`)
+        axios.get(`${import.meta.env.VITE_API_URL}/patients/${id}/allergies`)
             .then(res => setPatientAllergies(res.data))
             .catch(err => console.error(err));
     };
 
     const fetchTherapies = () => {
-        axios.get(`http://localhost:8000/patients/${id}/therapies`)
+        axios.get(`${import.meta.env.VITE_API_URL}/patients/${id}/therapies`)
             .then(res => setTherapies(res.data))
             .catch(err => console.error(err));
     };
@@ -352,7 +352,7 @@ export default function PatientInfo() {
     const handleDeleteTherapy = async (recordId) => {
         if (window.confirm("Дали сте сигурни дека сакате да ја избришете оваа терапија?")) {
             try {
-                await axios.delete(`http://localhost:8000/patients/therapies/${recordId}`);
+                await axios.delete(`${import.meta.env.VITE_API_URL}/patients/therapies/${recordId}`);
                 fetchTherapies();
             } catch (err) {
                 alert("Грешка при бришење");

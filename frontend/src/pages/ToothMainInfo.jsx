@@ -21,7 +21,7 @@ const ToothMainInfo = () => {
     const handleViewTreatment = async (item) => {
         try {
             if (!item?.treatment_id) return;
-            const res = await axios.get(`http://localhost:8000/treatments/${item.treatment_id}/details`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/treatments/${item.treatment_id}/details`);
             if (res.data) {
                 setSelectedTreatment(res.data);
                 setShowViewTreatmentModal(true);
@@ -76,7 +76,7 @@ const ToothMainInfo = () => {
     useEffect(() => {
         const fetchNote = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/teeth/${toothId}/notes?patient_id=${id}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/notes?patient_id=${id}`);
                 if (res.data && res.data.notes) {
                     setCurrentNote(res.data.notes);
                 }
@@ -92,7 +92,7 @@ const ToothMainInfo = () => {
 
     const fetchTreatments = async () => {
         try {
-            const url = `http://localhost:8000/patients/${id}/tooth/${toothId}/treatments`;
+            const url = `${import.meta.env.VITE_API_URL}/patients/${id}/tooth/${toothId}/treatments`;
              const res = await axios.get(url);
            
             setTreatments(res.data);
@@ -118,7 +118,7 @@ const ToothMainInfo = () => {
     useEffect(() => {
         const fetchTests = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/teeth/${toothId}/tests?patient_id=${id}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/tests?patient_id=${id}`);
                 setElectricValue(res.data.electricity_value);
                 setHeatData({ result: res.data.heat_result, detail: res.data.heat_detail });
                 setPalpationValue(res.data.palpation);
@@ -134,7 +134,7 @@ const ToothMainInfo = () => {
     useEffect(() => {
         const fetchMissingStatus = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/teeth/${toothId}/status`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/status`);
                 setIsMissing(res.data.is_missing);
             } catch (err) {
                 console.error("Грешка при влечење статус:", err);
@@ -147,7 +147,7 @@ const ToothMainInfo = () => {
     useEffect(() => {
         const fetchPerioData = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/patients/${id}/tooth/${toothId}/periodontal-measurements`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/patients/${id}/tooth/${toothId}/periodontal-measurements`);
                 if (res.data && res.data.measurements) {
                     const transformed = {};
                     res.data.measurements.forEach(m => {
@@ -177,7 +177,7 @@ const ToothMainInfo = () => {
 
     const confirmDeleteTreatment = async () => {
         try {
-            await axios.delete(`http://localhost:8000/treatments/${treatmentToDelete}`);
+            await axios.delete(`${import.meta.env.VITE_API_URL}/treatments/${treatmentToDelete}`);
             setTreatments(prev => prev.filter(t => t.treatment_id !== treatmentToDelete));
             setShowDeleteTreatmentModal(false);
             setTreatmentToDelete(null);
@@ -202,7 +202,7 @@ const ToothMainInfo = () => {
 
     const confirmDelete = async () => {
         try {
-            await axios.put(`http://localhost:8000/teeth/${toothId}/notes?patient_id=${id}`, {
+            await axios.put(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/notes?patient_id=${id}`, {
                 notes: ""
             });
             setCurrentNote("");
@@ -214,7 +214,7 @@ const ToothMainInfo = () => {
     };
     const handleMarkMissing = async () => {
         try {
-            await axios.patch(`http://localhost:8000/teeth/${toothId}/missing`);
+            await axios.patch(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/missing`);
             alert("Забот е обележан како недостасува");
             window.location.reload();
         } catch (err) {
@@ -225,7 +225,7 @@ const ToothMainInfo = () => {
 
     const handleSaveNotes = async () => {
         try {
-            await axios.put(`http://localhost:8000/teeth/${toothId}/notes?patient_id=${id}`, {
+            await axios.put(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/notes?patient_id=${id}`, {
                 notes: currentNote
             });
             setShowNoteModal(false);
@@ -236,23 +236,23 @@ const ToothMainInfo = () => {
     };
 
     const handleSaveElectricity = async (v) => {
-        try { await axios.post(`http://localhost:8000/teeth/${toothId}/electricity?patient_id=${id}`, { electricity_value: v }); setElectricValue(v); setShowElectricModal(false); } catch (e) { alert("Грешка"); }
+        try { await axios.post(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/electricity?patient_id=${id}`, { electricity_value: v }); setElectricValue(v); setShowElectricModal(false); } catch (e) { alert("Грешка"); }
     };
 
     const handleSaveCold = async (r, d = null) => {
-        try { await axios.post(`http://localhost:8000/teeth/${toothId}/cold?patient_id=${id}`, { cold_result: r, cold_detail: d }); setColdData({ result: r, detail: d }); setShowColdModal(false); setColdStep(1); } catch (e) { alert("Грешка"); }
+        try { await axios.post(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/cold?patient_id=${id}`, { cold_result: r, cold_detail: d }); setColdData({ result: r, detail: d }); setShowColdModal(false); setColdStep(1); } catch (e) { alert("Грешка"); }
     };
 
     const handleSaveHeat = async (r, d = null) => {
-        try { await axios.post(`http://localhost:8000/teeth/${toothId}/heat?patient_id=${id}`, { heat_result: r, heat_detail: d }); setHeatData({ result: r, detail: d }); setShowHeatModal(false); setHeatStep(1); } catch (e) { alert("Грешка"); }
+        try { await axios.post(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/heat?patient_id=${id}`, { heat_result: r, heat_detail: d }); setHeatData({ result: r, detail: d }); setShowHeatModal(false); setHeatStep(1); } catch (e) { alert("Грешка"); }
     };
 
     const handleSavePalpation = async (v) => {
-        try { await axios.post(`http://localhost:8000/teeth/${toothId}/palpation?patient_id=${id}`, { palpation: v }); setPalpationValue(v); setShowPalpationModal(false); } catch (e) { alert("Грешка"); }
+        try { await axios.post(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/palpation?patient_id=${id}`, { palpation: v }); setPalpationValue(v); setShowPalpationModal(false); } catch (e) { alert("Грешка"); }
     };
 
     const handleSavePercussion = async (v) => {
-        try { await axios.post(`http://localhost:8000/teeth/${toothId}/percussion?patient_id=${id}`, { percussion: v }); setPercussionValue(v); setShowPercussionModal(false); } catch (e) { alert("Грешка"); }
+        try { await axios.post(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/percussion?patient_id=${id}`, { percussion: v }); setPercussionValue(v); setShowPercussionModal(false); } catch (e) { alert("Грешка"); }
     };
 
     const displayInfo = {

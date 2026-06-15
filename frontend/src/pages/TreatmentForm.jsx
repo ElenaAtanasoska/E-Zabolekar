@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = 'http://localhost:8000/treatments';
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}/treatments`;
 const TreatmentForm = ({ selectedSurfaces = [], onSaveSuccess }) => {
     const { id: patientId, toothId } = useParams();
     const navigate = useNavigate();

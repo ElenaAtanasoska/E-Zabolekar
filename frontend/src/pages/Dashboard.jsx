@@ -24,7 +24,7 @@ export default function Dashboard() {
             try {
                 setErrorMessage("");
                 const token = localStorage.getItem("token");
-                const response = await axios.get(`http://localhost:8000/patients/search/${searchTerm}`, {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/patients/search/${searchTerm}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 if (response.data && response.data.patient_id) navigate(`/patient/${response.data.patient_id}`);

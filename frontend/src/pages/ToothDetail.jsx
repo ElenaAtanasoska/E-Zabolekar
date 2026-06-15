@@ -24,7 +24,7 @@ const ToothDetail = () => {
         const fetchToothInfo = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(`http://localhost:8000/teeth/${toothId}/image?patient_id=${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/teeth/${toothId}/image?patient_id=${id}`);
                 setToothBackendData(response.data);
             } catch (error) {
                 console.error("Грешка при влечење на податоците:", error);
@@ -38,7 +38,7 @@ const ToothDetail = () => {
     const fetchTreatments = async () => {
         try {
             // Додади го "/treatments" бидејќи тоа е префиксот на рутерот
-            const url = `http://localhost:8000/patients/${id}/tooth/${toothId}/treatments`;
+            const url = `${import.meta.env.VITE_API_URL}/patients/${id}/tooth/${toothId}/treatments`;
             const res = await axios.get(url);
             setTreatments(res.data);
             setLoading(false);
@@ -57,11 +57,11 @@ const ToothDetail = () => {
     const handleSaveTreatment = async () => {
         try {
             if (isEditing) {
-                const response = await axios.put(`http://localhost:8000/patients/treatments/${currentTreatmentId}`, newTreatment);
+                const response = await axios.put(`${import.meta.env.VITE_API_URL}/patients/treatments/${currentTreatmentId}`, newTreatment);
                 setTreatments(prev => prev.map(t => t.treatment_id === currentTreatmentId ? response.data : t));
             } else {
                 const toothNum = toothBackendData?.tooth_number;
-                const response = await axios.post(`http://localhost:8000/patients/${id}/teeth-number/${toothNum}/treatments`, newTreatment);
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/patients/${id}/teeth-number/${toothNum}/treatments`, newTreatment);
                 setTreatments(prev => [response.data, ...prev]);
             }
             setShowTreatmentModal(false);
