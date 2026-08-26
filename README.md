@@ -1,6 +1,8 @@
 # 🦷 E-Zabolekar (Digital Dental Clinic Management System)
 
-> A modular, full-stack web application designed to digitize and streamline dental clinic workflows, patient health records, and visual diagnostics. Developed as a university diploma project.
+> A modular, full-stack web application designed to digitize and streamline dental clinic workflows, patient health records, and visual diagnostics. 
+
+> **🎓 Developed as a university diploma thesis project (2026).**
 
 ---
 
@@ -46,14 +48,6 @@ Modern dental practices handle large volumes of daily patient data, medical hist
 ---
 
 ## 🏛️ System Architecture & Design
-
-### Database Model
-The application utilizes a relational database structure designed with normalization principles to ensure data integrity across complex medical records. Key entities include:
-- **Doctor:** Manages professional licenses, clinic affiliations, and patient assignments.
-- **Patient:** The central entity holding personal and emergency medical info.
-- **Tooth:** Represents individual dental units linked to specific patient treatments.
-- **Treatment:** Tracks procedures, statuses, and performance dates per tooth.
-- **Patient_Xray:** Manages metadata and links to secure cloud-hosted imaging.
 
 ### Cloud & DevOps Infrastructure
 The entire infrastructure follows the **Infrastructure as Code (IaC)** paradigm using Terraform to ensure consistency and eliminate manual configuration drift:
