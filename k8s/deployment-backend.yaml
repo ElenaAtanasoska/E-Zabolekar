@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: dental-backend
-        image: atanasoska/dental-backend:latest
+        image: atanasoska/dental-backend:v2
         imagePullPolicy: Always
         env:
         - name: DB_PASSWORD

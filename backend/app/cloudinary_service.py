@@ -13,7 +13,6 @@ cloudinary.config(
     secure=True
 )
 
-# Еве ја твојата функција тука:
 async def upload_image_to_cloudinary(file: UploadFile):
     result = cloudinary.uploader.upload(file.file, folder="xrays")
     return result.get("secure_url")

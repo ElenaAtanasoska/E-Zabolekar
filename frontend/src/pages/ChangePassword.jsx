@@ -41,7 +41,7 @@ export default function ChangePassword() {
         }
 
         try {
-            const response = await axios.put("http://127.0.0.1:8000/auth/change-password", {
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/auth/change-password`, {
                 currentPassword: passwords.currentPassword,
                 newPassword: passwords.newPassword,
                 confirmPassword: passwords.confirmPassword

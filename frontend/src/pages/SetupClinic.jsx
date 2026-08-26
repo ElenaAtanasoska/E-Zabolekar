@@ -31,7 +31,7 @@ export default function SetupClinic() {
         setLoading(true);
         const token = localStorage.getItem("access_token");
         try {
-            await axios.put("http://127.0.0.1:8000/auth/complete-setup", formData, {
+            await axios.put(`${import.meta.env.VITE_API_URL}/auth/complete-setup`, formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

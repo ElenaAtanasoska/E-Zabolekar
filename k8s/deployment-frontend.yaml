@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: dental-frontend
-        image: atanasoska/dental-frontend:latest 
+        image: atanasoska/dental-frontend:v3
         imagePullPolicy: Always
         ports:
         - containerPort: 5173

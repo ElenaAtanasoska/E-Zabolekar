@@ -14,7 +14,7 @@ export default function ManageDoctors() {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/doctors/list");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/doctors/list`);
       setDoctors(response.data);
     } catch (err) {
       console.error("Грешка при вчитување на доктори", err);
@@ -31,7 +31,7 @@ export default function ManageDoctors() {
     setGeneratedPass(null);
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/auth/add-doctor", {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/add-doctor`, {
         email: email
       });
 
@@ -49,7 +49,7 @@ export default function ManageDoctors() {
   
 
     try {
-      await axios.delete(`http://127.0.0.1:8000/doctors/${doctor_id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/doctors/${doctor_id}`);
       fetchDoctors(); // Повторно вчитување на листата
     } catch (err) {
       alert(err.response?.data?.detail || "Настана грешка при бришењето.");

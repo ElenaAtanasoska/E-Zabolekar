@@ -35,7 +35,7 @@ export default function CompleteDoctorProfile() {
         setLoading(true);
         const token = localStorage.getItem("token");
         try {
-            await axios.put(`http://127.0.0.1:8000/auth/complete-doctor-setup`, {
+            await axios.put(`${import.meta.env.VITE_API_URL}/auth/complete-doctor-setup`, {
                 first_name: data.firstName,
                 last_name: data.lastName,
                 license_number: data.licenseNumber,

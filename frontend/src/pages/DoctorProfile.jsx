@@ -24,7 +24,7 @@ export default function DoctorProfile() {
         const token = localStorage.getItem("token");
         if (!doctorId) return;
 
-        const res = await axios.get(`http://127.0.0.1:8000/auth/doctors/${doctorId}`, {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/auth/doctors/${doctorId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -65,7 +65,7 @@ export default function DoctorProfile() {
         phone_number: doctorData.phone
       };
 
-      await axios.put(`http://127.0.0.1:8000/auth/doctors/${doctorId}`, payload, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/auth/doctors/${doctorId}`, payload, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
