@@ -1,20 +1,20 @@
-# 🦷 E-Zabolekar (Digital Dental Clinic Management System)
+# E-Zabolekar (Digital Dental Clinic Management System)
 
 > A modular, full-stack web application designed to digitize and streamline dental clinic workflows, patient health records, and visual diagnostics. 
 
-> **🎓 Developed as a university diploma thesis project (2026).**
+> **Developed as a university diploma thesis project.**
 
 ---
 
-## 📖 About the Project
+## About the Project
 
-Modern dental practices handle large volumes of daily patient data, medical histories, and administrative tasks. Traditional paper-based records and fragmented systems often lead to inefficiencies, data loss, and slower decision-making. 
+Modern dental practices handle large volumes of daily patient data, medical histories, and administrative tasks. Traditional paper based records and fragmented systems often lead to inefficiencies, data loss, and slower decision making. 
 
-**E-Zabolekar** is an enterprise-grade, cloud-native web application built to centralize and modernize dental clinic management. It provides role-based access for clinic administrators and dentists, comprehensive patient tracking, medical/allergy histories, and an interactive 3D dental chart for visual diagnostics.
+**E-Zabolekar** is an enterprise grade, cloud native web application built to centralize and modernize dental clinic management. It provides role based access for clinic administrators and dentists, comprehensive patient tracking, medical/allergy histories, and an interactive 3D dental chart for visual diagnostics.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 - **Role-Based Access Control (RBAC):** Admins manage doctor accounts and system configurations; dentists maintain patient files and treatment logs.
 - **Patient Management & Dossier:** Secure registration, unique identification generation, blood types, chronic conditions, and active therapies.
@@ -24,7 +24,7 @@ Modern dental practices handle large volumes of daily patient data, medical hist
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **Framework:** React, Vite (Single Page Application architecture)
@@ -47,7 +47,7 @@ Modern dental practices handle large volumes of daily patient data, medical hist
 
 ---
 
-## 🏛️ System Architecture & Design
+## System Architecture & Design
 
 ### Cloud & DevOps Infrastructure
 The entire infrastructure follows the **Infrastructure as Code (IaC)** paradigm using Terraform to ensure consistency and eliminate manual configuration drift:
